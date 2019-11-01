@@ -1,0 +1,237 @@
+<!DOCtype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+ a{
+ color: white;
+ 
+ }
+ a:hover{
+ color: gray;
+ }
+ form {
+       display: none;
+	  margin-left: 35%;
+      }
+</style>
+	
+</head>
+
+<body>
+
+<ul class="nav nav-pills bg-dark ">
+  <li class="nav-item" onclick="altaCliente();">
+    <a class="nav-link" href="#">Alta cliente</a>
+  </li>
+  <li class="nav-item" onclick="altaVehiculo();">
+    <a class="nav-link" href="#">Alta vehiculo</a>
+  </li>
+  <li class="nav-item" onclick="ComprarVehiculo();">
+    <a class="nav-link" href="#">Comprar vehiculo</a>
+  </li>
+  <li class="nav-item" onclick="VenderVehiculo();">
+    <a class="nav-link" href="#">Vender vehiculos</a>
+  </li>
+  
+  
+  
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Listados</a>
+    <ul class="dropdown-menu">
+    <li onclick="vehiculoVenta();">  <a class="dropdown-item" href="#">Vehiculo a la venta</a> </li>
+     <li onclick="vehiculoVentaPeriodo();">  <a class="dropdown-item" href="#">Vehiculos vendidos e un periodo</a></li>
+     <li onclick="vehiculoCompradosPeriodo();">  <a class="dropdown-item" href="#">Vehiculos comprados en un periodo</a></li>
+     <li onclick="vehiculoVentaFiltros();">  <a class="dropdown-item" href="#">Listado de vehiculos con filtros</a></li>
+     <li onclick="listadoClientes();">  <a class="dropdown-item" href="#">Listado de clientes</a></li>
+    </ul >
+  </li>
+</ul>
+
+<br>
+<br>
+<!-- A partir de aqui se construye los formularios. Los formularios no estan disponible por defecto 
+	 por una regla Style-->
+	 
+	 <!--AltaCliente-->
+	<form class="form-horizontal" name="frmAltaCliente" id="frmAltaCliente">
+        <fieldset>
+            <legend>Alta de cliente</legend>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="txtNif">NIF</label>
+                <div class="col-md-4">
+                    <input id="txtNif" name="txtNif" type="text" placeholder="" class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="txtNombre">Nombre</label>
+                <div class="col-md-4">
+                    <input id="txtNombre" name="txtNombre" type="text"  class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="txtApellidos">Apellidos</label>
+                <div class="col-md-4">
+                    <input id="txtApellidos" name="txtApellidos" type="text" placeholder="" class="form-control input-md" required="">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="txtTelefono">Telefono</label>
+                <div class="col-md-4">
+                    <input id="txtTelefono" name="txtTelefono" type="text" placeholder="" class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="btnAceptar"></label>
+                <div class="col-md-4">
+                    <input onclick="aceptarAltaCliente();" type="button" id="btnAceptar" name="btnAceptar" class="btn btn-primary" value="Aceptar" />
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+<!--AltaVehiculo-->
+	<form class="form-horizontal" name="frmAltaVehiculo" id="frmAltaVehiculo">
+        <fieldset>
+            <legend>Alta de vehiculo</legend>
+
+			<div class="form-group">
+                <label class="col-md-4 control-label" for="txtCategoria">Categoria: T=>Turismos, 4=>4x4</label>
+                <div class="col-md-4">
+                    <input id="txtCategoria" name="txtCategoria" type="text" placeholder="" class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="txtMatricula">Matricula</label>
+                <div class="col-md-4">
+                    <input id="txtMatricula" name="txtMatricula" type="text" placeholder="" class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="txtMarca">Marca</label>
+                <div class="col-md-4">
+                    <input id="txtMarca" name="txtMarca" type="text"  class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="txtModelo">Modelo</label>
+                <div class="col-md-4">
+                    <input id="txtModelo" name="txtModelo" type="text" placeholder="" class="form-control input-md" required="">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="txtCombustible">Combustible: G=>Gasolina/D=>Diesel/B=>Biocombustible</label>
+                <div class="col-md-4">
+                    <input id="txtCombustible" name="txtCombustible" type="text" placeholder="" class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="btnAceptar"></label>
+                <div class="col-md-4">
+                    <input onclick="comprobarCategoria();" type="button" id="btnAceptar" name="btnAceptar" class="btn btn-primary" value="Comprobar" />
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+<!--AltaTurismo-->
+<form class="form-horizontal" name="frmAltaTurismo" id="frmAltaTurismo">
+        <fieldset>
+            <legend>Alta de turismo</legend>
+
+			<div class="form-group">
+                <label class="col-md-4 control-label" for="bABS">ABS</label>
+                <div class="col-md-4">
+                    <input id="bABS" name="bABS" type="checkbox" placeholder="" class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="bDescapotable">Descapotable</label>
+                <div class="col-md-4">
+                    <input id="bDescapotable" name="bDescapotable" type="checkbox" placeholder="" class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="txtNumPuertas">Numero de puertas</label>
+                <div class="col-md-4">
+                    <input id="txtNumPuertas" name="txtNumPuertas" type="text"  class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+           
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="btnAceptar"></label>
+                <div class="col-md-4">
+                    <input onclick="aceptarAltaVehiculo();" type="button" id="btnAceptar" name="btnAceptar" class="btn btn-primary" value="Aceptar" />
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+<!--Alta4x4-->
+<form class="form-horizontal" name="frmAlta4x4" id="frmAlta4x4">
+        <fieldset>
+            <legend>Alta de 4x4</legend>
+
+			<div class="form-group">
+                <label class="col-md-4 control-label" for="txtPenMax">PendienteMax</label>
+                <div class="col-md-4">
+                    <input id="txtPenMax" name="txtPenMax" type="text" placeholder="" class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="btnAceptar"></label>
+                <div class="col-md-4">
+                    <input onclick="aceptarAltaVehiculo();" type="button" id="btnAceptar" name="btnAceptar" class="btn btn-primary" value="Aceptar" />
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+	 
+
+
+
+
+
+
+<!-- A partir de aqui no se puede contruir formularios-->
+<div id="listado">
+
+</div>
+<script type="text/javascript" src="objetos.js"></script>
+<script type="text/javascript" src="codigo.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>

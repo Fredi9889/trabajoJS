@@ -1,6 +1,24 @@
 31/10/2019 13:19
 Ivan: He terminado AltaCliente, lo vamos hacer en dos archivos uno donde contruyamos todos los objetos como cliente. venta etc y otro que contenga
 el codigo. Si teneis duda de como hacerlo mirad mi codigo. Que ya funciona.
+
 01/11/2019 13:45
 Ivan: He terminado AltaVehiculo. Lo que no me gusta mucho es el checkbox de  los turismos. echale un vistazo y ya me comentareis.
 Casi he terminado la lista Clientes. Se muestra la lista pero no esta ordenada, todavia sigo investigando como puedo ordenarla
+
+A los campos tipo fechas ponedles dtNombredelcampo
+_______________________________________________________________________________________________________________________________________________________________
+Clase Venta y Clase Cmpra
+5-buscarVenta(oVeiculo): oVenta
+	Por lo que intuyo será que busca la venta de oVehiculo, para lo que hay que recorrer Venta y filtrar por Vehículo
+8-ListadoALaVenta(): HTMLTable																											<===== No me borreis eso que es pa organizarme
+	Listar los vehículos que esten actualmente en venta(los que hemos comprado pero aun no hemos vendido), por lo que intuyo
+	que habrá que recorrer la tabla compra
+11-ListadoVehiculos(): HTMLTable
+	Hacer un formulario para filtrar los vehículos por : [Tipo: Turismos,4x4,Todos][Combustible: Gasolina,  Diesel, biocombustible, todos]
+	Supongo que hare un bucle que muestre las opciones segun las haya, en planan formulario dinámico, que si por ejemplo no hay gasolina, que no muestre la opcion
+	ya sea un radiobutton o en el desplegable
+_______________________________________________________________________________________________________________________________________________________________
+
+4/11/19
+He terminao las clases Venta y Compra y ya no tengo ni puta idea de continuar, flipa con los métodos colegui.

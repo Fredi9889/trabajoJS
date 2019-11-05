@@ -1,4 +1,7 @@
 "use strict";
+
+//////////////////////////////////////CLASES/////////////////////////////////////////////////////////////
+
 //Clase Cliente
 function Cliente(sNIF, sNombre, sApellido, iTelefono) {
     this.nif = sNIF;
@@ -6,10 +9,38 @@ function Cliente(sNIF, sNombre, sApellido, iTelefono) {
     this.apellido = sApellido;
     this.telefono = iTelefono;
 }
+
 Cliente.prototype.toString = function() {
     let sMensaje = "El cliente " +this.nombre+ " " +this.apellido+" con DNI " +this.nif+ " y telefono " +this.telefono;
     return sMensaje;
 }
+
+//Clase Venta
+function Venta(oCliente, oVehiculo, fImporte,dtFVenta) {
+    this.cliente = oCliente;
+    this.vehiculo= oVehiculo;
+    this.importe = fImporte;
+    this.fVenta = dtFVenta;
+}
+
+Venta.prototype.toString = function() {
+    let sMensaje = "El cliente " +this.cliente+ ", ha vendido un " +this.vehiculo+" por un importe de " +this.importe+ " el día " +this.fVenta;
+    return sMensaje;
+}
+
+//Clase Compra
+function Compra(oCliente, oVehiculo, fImporte,dtFCompra) {
+    this.cliente = oCliente;
+    this.vehiculo= oVehiculo;
+    this.importe = fImporte;
+    this.fCompra = dtFCompra;
+}
+
+Venta.prototype.toString = function() {
+    let sMensaje = "El cliente " +this.cliente+ ", ha comprado un " +this.vehiculo+" por un importe de " +this.importe+ " el día " +this.fCompra;
+    return sMensaje;
+}
+
 //Clase vehiculo
 function Vehiculo(sMatricula, sMarca, sModelo, sCombustible) {
     this.matricula = sMatricula;
@@ -17,10 +48,12 @@ function Vehiculo(sMatricula, sMarca, sModelo, sCombustible) {
     this.modelo = sModelo;
     this.combustible = sCombustible;
 }
+
 Vehiculo.prototype.toString = function() {
     let sMensaje = "El vehiculo " +this.matricula+ " de la marca " +this.marca+" y del modelo " +this.modelo+ " tiene el combustible " +this.combustible;
     return sMensaje;
 }
+
 //clase turismo
 function Turismo(sMatricula, sMarca, sModelo, sCombustible, bABS, bDescapotable, iNumPuertas) {
     Vehiculo.call(this, sMatricula, sMarca, sModelo, sCombustible);
@@ -28,7 +61,8 @@ function Turismo(sMatricula, sMarca, sModelo, sCombustible, bABS, bDescapotable,
     this.descapotable = bDescapotable;
     this.numPuertas = iNumPuertas;
 }
-//heredar de vehiculo
+
+//Herencia de vehiculo
 Turismo.prototype = Object.create(Vehiculo.prototype);
 Turismo.prototype.constructor = Turismo;
 
@@ -43,7 +77,7 @@ function todoTerreno(sMatricula, sMarca, sModelo, sCombustible,iPendintemax) {
     Vehiculo.call(this, sMatricula, sMarca, sModelo, sCombustible);
     this.pendienteMax= iPendintemax;
 }
-//heredar de vehiculo
+//Herencia de vehiculo
 todoTerreno.prototype = Object.create(Vehiculo.prototype);
 todoTerreno.prototype.constructor = todoTerreno;
 
@@ -63,6 +97,8 @@ constructor()
         this.compras = [];
         this.vehiculos = [];
     }
+
+    //////////////////////////////////////////////////MÉTODOS/////////////////////////////////////////////////////////////////
 
     //Introducir cliente
     altaCliente(oCliente) 
@@ -101,7 +137,7 @@ constructor()
     buscarClientes(sNif)
     {
 
-    let oCliente
+    let oCliente;
     if (this.clientes.filter(clientes => clientes.nif == sNif).length != 0) {
           oCliente = new Cliente(this.sNif, this.nombre,this.apellido, this.telefono);
         } 
@@ -129,6 +165,11 @@ constructor()
     sMensaje += "</tbody></table>";
 
      return sMensaje;
+    }
+
+    //buscarVenta
+    buscarVenta(oVehiculo){
+        let oVenta;
     }
 
 }

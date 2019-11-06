@@ -8,17 +8,28 @@ Casi he terminado la lista Clientes. Se muestra la lista pero no esta ordenada, 
 
 A los campos tipo fechas ponedles dtNombredelcampo
 _______________________________________________________________________________________________________________________________________________________________
-Clase Venta y Clase Cmpra
-5-buscarVenta(oVeiculo): oVenta
+Clase Venta y Clase Compra
+
+5-buscarVenta(matricula): oVenta		-->	Hesho
 	Por lo que intuyo será que busca la venta de oVehiculo, para lo que hay que recorrer Venta y filtrar por Vehículo
-8-ListadoALaVenta(): HTMLTable																											<===== No me borreis eso que es pa organizarme
+
+8-ListadoALaVenta(): HTMLTable		-->	Hesho
 	Listar los vehículos que esten actualmente en venta(los que hemos comprado pero aun no hemos vendido), por lo que intuyo
 	que habrá que recorrer la tabla compra
+																						<===== No me borreis eso que es pa organizarme
+10-ListadoComprasPeriodo(FechaInicio, FechaFin): HTMLTable
+	Mostrará un formulario donde pide una fecha de inicio y una fecha final mostrar todas las compras de ese periodo
+	Mostrar datos conmpletos del vehículo  -> ordenar por fecha de compra descendente
+
 11-ListadoVehiculos(): HTMLTable
 	Hacer un formulario para filtrar los vehículos por : [Tipo: Turismos,4x4,Todos][Combustible: Gasolina,  Diesel, biocombustible, todos]
 	Supongo que hare un bucle que muestre las opciones segun las haya, en planan formulario dinámico, que si por ejemplo no hay gasolina, que no muestre la opcion
 	ya sea un radiobutton o en el desplegable
+
 _______________________________________________________________________________________________________________________________________________________________
 
 4/11/19
-He terminao las clases Venta y Compra y ya no tengo ni puta idea de continuar, flipa con los métodos colegui.
+Samu: He terminao las clases Venta y Compra 
+
+6/11/19
+Samu: Terminado ListadoALaVenta y buscarVenta

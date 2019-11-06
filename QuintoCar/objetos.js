@@ -153,17 +153,8 @@ constructor()
             }
         }
         return oCompra;
-    }//4.2.-Buscar venta
-    buscarVenta(matricula){
-        let oVenta = null;
-        for(let i=0 ; i<this.ventas.length ; i++){
-            let venta = this.ventas[i];
-            if(venta.vehiculo.matricula == matricula){
-                oVenta = venta;
-            }
-        }
-        return oVenta;
     }
+
     //5.-BuscarVenta
     buscarVenta(matricula){
         let oVenta = null;
@@ -251,16 +242,24 @@ constructor()
     //Los registros del listado deben salir ordenados por fecha de venta ascendente.
     listadoVendidosPeriodo(fInicio, fFin){
         let arrayFiltrado = this.ventas.filter(x => x.fVenta>=fInicio && x.fVenta<=fFin);
-        let tabla = '<table border="1"><thead><tr>';
-        tabla += "<th>Codigo</th><th>Nombre</th><th>Precio</th><th>Unidades</th>";
-        tabla += "</tr></thead><tbody>";
-        function recorrerArray(value, index, array) {
-            tabla += "<tr>";
-
-            tabla += "</tr>";
+        let tabla;
+        function recorrerArray(value) {
+            let oCompra = this.buscarCompra(value.vehiculo.matricula);
+            tabla = '<table border="1"><tr>';
+            tabla += "<th colspan='4'>Vehículo</th></tr>";
+            tabla += "<tr><th>Matrícula</th><th>Marca</th><th>Modelo</th><th>Combustible</th></tr>";
+            tabla += "<tr><td>" + value.vehiculo.matricula + "</td><td>" + value.vehiculo.marca + "</td><td>" + value.vehiculo.modelo + "</td><td>" + value.vehiculo.combustible + "</td></tr>";
+            //Preguntar a Carlos que como se si un vehículo es un turismo o un 4x4
+            tabla += "<tr><th colspan='2'>Fecha de compra</th><th colspan='2'>Fecha de venta</th></tr>";
+            tabla += "<tr><td colspan='2'>" + oCompra.fCompra + "</td><td colspan='2'>" + value.fVenta;
+            tabla += "<tr><th colspan='2'>Importe de compra</th><th colspan='2'>Importe de venta</th></tr>";
+            tabla += "<tr><td colspan='2'>" + oCompra.importe + "</td><td colspan='2'>" + value.importe;
+            table += "<tr><th colspan='4'>Veneficios</th></tr>";
+            table += "<tr><td>" + value.importe-oCompra.importe + "</td></tr>";
+            tabla += "</table>";
         }
-        tabla += "</tbody></table>";
-        
+        arrayFiltrado.forEach(recorrerArray);
+        return tabla;
     }
     //ListadoCliente
     listadoCliente()
@@ -283,6 +282,6 @@ constructor()
 
      return sMensaje;
     }
-
+    
 
 }

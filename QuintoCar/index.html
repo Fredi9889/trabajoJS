@@ -29,7 +29,7 @@
   <li class="nav-item" onclick="altaVehiculo();">
     <a class="nav-link" href="#">Alta vehiculo</a>
   </li>
-  <li class="nav-item" onclick="ComprarVehiculo();">
+  <li class="nav-item" onclick="comprarVehiculo();">
     <a class="nav-link" href="#">Comprar vehiculo</a>
   </li>
   <li class="nav-item" onclick="VenderVehiculo();">
@@ -213,7 +213,51 @@
 
         </fieldset>
     </form>
+<!--Comprar vehículo-->
+<form class="form-horizontal" name="frmComprarVehiculo">
+    <fieldset>
+        <legend>Comprar vehículo</legend>
 
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="txtNif">NIF cliente</label>
+            <div class="col-md-4">
+                <input name="txtNif" type="text" placeholder="" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="txtMatricula">Matrícula</label>
+            <div class="col-md-4">
+                <input name="txtMatricula" type="text"  class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="txtFecha">Fecha</label>
+            <div class="col-md-4">
+                <input name="txtFecha" type="text" placeholder="" class="form-control input-md" required="">
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="txtImporte">Importe</label>
+            <div class="col-md-4">
+                <input name="txtImporte" type="text" placeholder="" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="btnAceptar"></label>
+            <div class="col-md-4">
+                <input onclick="aceptarCompraVehiculo();" type="button" id="btnAceptar" name="btnAceptar" class="btn btn-primary" value="Aceptar" />
+            </div>
+        </div>
+
+    </fieldset>
+</form>
 	 
 
 

@@ -155,8 +155,12 @@ constructor()
         return oCompra;
     }
     //5.-BuscarVenta
-    buscarVenta(oVehiculo){
-        let oVenta;
+    buscarVenta(matricula){
+        let oVenta = null;
+        if (this.ventas.filter(ventas => ventas.vehiculo.matricula == matricula).length != 0) {
+          oVenta = ventas;
+        } 
+        return oVenta;
     }
     
     //6.-Comprar vehículo
@@ -187,6 +191,23 @@ constructor()
         return mens;
     }
 
+    //8.- Vehículos en venta
+    vehiculosEnVenta(){
+        let vehiculo;
+        for(let i=0;i<this.ventas.length;i++){
+            vehiculo=this.ventas.vehiculo.matricula;
+            for(let j=0;j<this.compras.length;j++){
+                if (!vehiculo==this.compras[i].vehiculo.matricula) {
+                    console.log(vehiculo);
+                    return vehiculo;
+                }else{
+                    return "por lo menos llega bro";
+                }
+            }
+        }
+        return "llega";
+    }
+
     //ListadoCliente
     listadoCliente()
     {
@@ -208,7 +229,6 @@ constructor()
 
      return sMensaje;
     }
-
 
 
 }

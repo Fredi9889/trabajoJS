@@ -1,7 +1,6 @@
 "use strict";
 
 //////////////////////////////////////CLASES/////////////////////////////////////////////////////////////
-
 //Clase Cliente
 function Cliente(sNIF, sNombre, sApellido, iTelefono) {
     this.nif = sNIF;
@@ -144,7 +143,50 @@ constructor()
     return oCliente;
 
     }
+    //4.-Buscar compra
+    buscarCompra(matricula){
+        let oCompra = null;
+        for(let i=0 ; i<this.compras.length ; i++){
+            let compra = this.compras[i];
+            if(compra.vehiculo.matricula == matricula){
+                oCompra = compra;
+            }
+        }
+        return oCompra;
+    }
+    //5.-BuscarVenta
+    buscarVenta(oVehiculo){
+        let oVenta;
+    }
     
+    //6.-Comprar vehículo
+    comprarVehiculo(matricula, sNIF, importeCompra, fechaCompra){
+        let mens = "";
+
+        let oClientesBuscar = this.clientes.filter(cli => cli.nif == sNIF);
+        let oVehiculosBuscar = this.vehiculos.filter(vehi => vehi.matricula == matricula);
+        //Comprobar que exista el cliente
+        if (oClientesBuscar.length == 0) {
+            mens = "ERROR: El cliente no existe";
+        }else
+        //Comprobar que el vehículo esté registrado
+        if(oVehiculosBuscar.length == 0){
+            mens = "ERROR: El vehículo no existe";
+        }else
+        //Comprobar que el vehículo no se haya comprado antes
+        if(this.buscarCompra(matricula) != null){
+            mens = "El vehículo ya se había comprado antes";
+        }else{
+
+            let c = new Compra(oClientesBuscar[0], oVehiculosBuscar[0], importeCompra,fechaCompra);
+            this.compras.push(c);
+            mens = "El vehículo se ha comprado correctamente";
+        }
+
+        
+        return mens;
+    }
+
     //ListadoCliente
     listadoCliente()
     {
@@ -167,29 +209,6 @@ constructor()
      return sMensaje;
     }
 
-    //buscarVenta
-    buscarVenta(matricula){
-        let oVenta = null;
-        if (this.ventas.filter(ventas => ventas.vehiculo.matricula == matricula).length != 0) {
-          oVenta = ventas;
-        } 
-        return oVenta;
-    }
 
-    //Vehículos en venta
-    vehiculosEnVenta(){
-        let vehiculo;
-        for(let i=0;i<this.ventas.length;i++){
-            vehiculo=this.ventas.vehiculo.matricula;
-            for(let j=0;j<this.compras.length;j++){
-                if (!vehiculo==this.compras[i].vehiculo.matricula) {
-                    console.log(vehiculo);
-                    return vehiculo;
-                }else{
-                    return "por lo menos llega bro";
-                }
-            }
-        }
-        return "llega";
-    }
+
 }

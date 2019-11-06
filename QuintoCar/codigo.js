@@ -103,4 +103,10 @@ function listadoClientes(){
     divListado.innerHTML= oQuintoCar.listadoCliente();
 }
 
-//jgfiufiufyuuyfiuriurfiogt0pyp09t89
+//Listado de vehículos en venta
+function listadoALaVenta(){
+    
+    let sMensaje = oQuintoCar.vehiculosEnVenta();
+    divListado.style.display = "block";    
+    divListado.innerHTML= sMensaje;
+}

@@ -7,6 +7,8 @@ var divListado = document.getElementById("listado");
 
 //Mostrar formulario cliente(anadir los otros formularios mientras los vais creando)
 function altaCliente() {
+    frmVenderVehiculo.style.display = "none";
+    frmListadoVVP.style.display = "none";
     frmAltaCliente.style.display = "block";
     frmAltaVehiculo.style.display = "none";
     frmAltaTurismo.style.display = "none";
@@ -16,6 +18,8 @@ function altaCliente() {
 }
 //Mostrar formulario vehiculo(anadir los otros formularios mientras los vais creando)
 function altaVehiculo(){
+    frmVenderVehiculo.style.display = "none";
+    frmListadoVVP.style.display = "none";
     frmAltaCliente.style.display = "none";
     frmAltaVehiculo.style.display = "block";
     frmAltaTurismo.style.display = "none";
@@ -25,6 +29,8 @@ function altaVehiculo(){
 }
 //Mostrar comprar vehículo
 function comprarVehiculo(){
+    frmVenderVehiculo.style.display = "none";
+    frmListadoVVP.style.display = "none";
     frmAltaCliente.style.display = "none";
     frmAltaVehiculo.style.display = "none";
     frmAltaTurismo.style.display = "none";
@@ -117,6 +123,8 @@ function aceptarAltaVehiculo(){
 
 //ListadoClientes
 function listadoClientes(){
+    frmVenderVehiculo.style.display = "none";
+    frmListadoVVP.style.display = "none";
     frmAltaCliente.style.display = "none";
     frmAltaVehiculo.style.display = "none";
     frmAltaTurismo.style.display = "none";
@@ -131,4 +139,42 @@ function listadoALaVenta(){
     let sMensaje = oQuintoCar.vehiculosEnVenta();
     divListado.style.display = "block";    
     divListado.innerHTML= sMensaje;
+}
+//7.- Mostrar venta de vehículo
+function venderVehiculo(){
+    frmListadoVVP.style.display = "none";
+    frmAltaCliente.style.display = "none";
+    frmAltaVehiculo.style.display = "none";
+    frmAltaTurismo.style.display = "none";
+    frmAlta4x4.style.display = "none";
+    frmComprarVehiculo.style.display = "none";
+    divListado.style.display = "none";
+    frmVenderVehiculo.style.display = "block";
+}
+//7.- Aceptar venta de vehículo
+function aceptarVentaVehiculo(){
+    //Recoger valores del formulario
+    let nifCliente = frmVenderVehiculo.txtNif.value.trim();
+    let matricula = frmVenderVehiculo.txtMatricula.value.trim();
+    let fechaCompra = frmVenderVehiculo.txtFecha.value.trim();
+    let importeCompra = frmVenderVehiculo.txtImporte.value.trim();
+    let mensaje = oQuintoCar.venderVehiculo(matricula, nifCliente, importeCompra, fechaCompra);
+    alert(mensaje);
+}
+//9.-Mostrar listado de vehículos vendidos en un periodo determinado
+function vehiculoVentaPeriodo(){
+    frmVenderVehiculo.style.display = "none";
+    frmListadoVVP.style.display = "block";
+    frmAltaCliente.style.display = "none";
+    frmAltaVehiculo.style.display = "none";
+    frmAltaTurismo.style.display = "none";
+    frmAlta4x4.style.display = "none";
+    frmComprarVehiculo.style.display = "none";
+    divListado.style.display = "none";
+}
+//9.-Aceptar listado de vehículos vendidos en un periodo determinado
+function aceptarListadoVVP(){
+    let fInicio = frmListadoVVP.txtFechaInicio.value.trim();
+    let fFin = frmListadoVVP.txtFechaFin.value.trim();
+    divListado.innerHTML= oQuintoCar.listadoVendidosPeriodo(fInicio, fFin);
 }

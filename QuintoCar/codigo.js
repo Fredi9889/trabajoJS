@@ -115,7 +115,7 @@ function aceptarAltaVehiculo(){
         alert(mensaje);
     }
 
-
+//ListadoClientes
 function listadoClientes(){
     frmAltaCliente.style.display = "none";
     frmAltaVehiculo.style.display = "none";
@@ -123,4 +123,12 @@ function listadoClientes(){
     frmAlta4x4.style.display = "none";
     divListado.style.display = "block";    
     divListado.innerHTML= oQuintoCar.listadoCliente();
+}
+
+//Listado de vehículos en venta
+function listadoALaVenta(){
+    
+    let sMensaje = oQuintoCar.vehiculosEnVenta();
+    divListado.style.display = "block";    
+    divListado.innerHTML= sMensaje;
 }

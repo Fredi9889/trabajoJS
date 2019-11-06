@@ -143,7 +143,7 @@ constructor()
     return oCliente;
 
     }
-    //4.-Buscar compra
+    //4.1.-Buscar compra
     buscarCompra(matricula){
         let oCompra = null;
         for(let i=0 ; i<this.compras.length ; i++){
@@ -153,6 +153,16 @@ constructor()
             }
         }
         return oCompra;
+    }//4.2.-Buscar venta
+    buscarVenta(matricula){
+        let oVenta = null;
+        for(let i=0 ; i<this.ventas.length ; i++){
+            let venta = this.ventas[i];
+            if(venta.vehiculo.matricula == matricula){
+                oVenta = venta;
+            }
+        }
+        return oVenta;
     }
     //5.-BuscarVenta
     buscarVenta(matricula){
@@ -179,14 +189,42 @@ constructor()
         }else
         //Comprobar que el vehículo no se haya comprado antes
         if(this.buscarCompra(matricula) != null){
-            mens = "El vehículo ya se había comprado antes";
+            mens = "ERROR: El vehículo ya se había comprado antes";
         }else{
 
             let c = new Compra(oClientesBuscar[0], oVehiculosBuscar[0], importeCompra,fechaCompra);
             this.compras.push(c);
             mens = "El vehículo se ha comprado correctamente";
+        } 
+        return mens;
+    }
+    //7.-Vender vehículo
+    venderVehiculo(matricula, NIF, importeCompra, fechaCompra){
+        let mens = "";
+        let oCliente;
+        let oVehiculosBuscar = this.vehiculos.filter(vehi => vehi.matricula == matricula);
+        //Comprobar que exista el cliente
+        if (this.buscarClientes(NIF) == null) {
+            mens = "ERROR: El cliente no existe";
+        }else{
+            oCliente = this.buscarClientes(NIF);
+            //Comprobar que el vehículo esté registrado
+            if(oVehiculosBuscar.length == 0){
+                mens = "ERROR: El vehículo no existe";
+            }else 
+            //Comprobar que el vehículo no se haya vendido ya
+            if(this.ventas.some(matri => matri == matricula)){
+                mens = "ERROR: El vehículo ya se ha vendido anteriormente";
+            }else
+            //Comprobar que el importe de venta es superior al de compra
+            if(this.buscarCompra(matricula).importe<this.buscarVenta(matricula).importe){
+                let v = new Venta(oCliente, oVehiculosBuscar[0], importeCompra,fechaCompra);
+                this.ventas.push(v);
+                mens = "El vehículo se ha comprado correctamente";
+            }else{
+                mens = "ERROR: El importe de la venta no es superior al de compra";
+            } 
         }
-
         
         return mens;
     }
@@ -207,7 +245,23 @@ constructor()
         }
         return "llega";
     }
+    //9.- Listado de vehículos vendidos en un periodo determinado
+    //Datos completos del vehículo, fecha de compra, fecha de venta, importe de compra, 
+    //importe de venta y beneficio (importe venta – importe compra).  
+    //Los registros del listado deben salir ordenados por fecha de venta ascendente.
+    listadoVendidosPeriodo(fInicio, fFin){
+        let arrayFiltrado = this.ventas.filter(x => x.fVenta>=fInicio && x.fVenta<=fFin);
+        let tabla = '<table border="1"><thead><tr>';
+        tabla += "<th>Codigo</th><th>Nombre</th><th>Precio</th><th>Unidades</th>";
+        tabla += "</tr></thead><tbody>";
+        function recorrerArray(value, index, array) {
+            tabla += "<tr>";
 
+            tabla += "</tr>";
+        }
+        tabla += "</tbody></table>";
+        
+    }
     //ListadoCliente
     listadoCliente()
     {

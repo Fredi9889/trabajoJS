@@ -27,20 +27,20 @@
     <a class="nav-link" href="#">Alta cliente</a>
   </li>
   <li class="nav-item" onclick="altaVehiculo();">
-    <a class="nav-link" href="#">Alta vehiculo</a>
+    <a class="nav-link" href="#">Alta vehículo</a>
   </li>
   <li class="nav-item" onclick="comprarVehiculo();">
-    <a class="nav-link" href="#">Comprar vehiculo</a>
+    <a class="nav-link" href="#">Comprar vehículo</a>
   </li>
-  <li class="nav-item" onclick="VenderVehiculo();">
-    <a class="nav-link" href="#">Vender vehiculos</a>
+  <li class="nav-item" onclick="venderVehiculo();">
+    <a class="nav-link" href="#">Vender vehículo</a>
   </li>
   
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Listados</a>
     <ul class="dropdown-menu">
     <li onclick="listadoALaVenta();">  <a class="dropdown-item" href="#">Vehiculo a la venta</a> </li>
-     <li onclick="vehiculoVentaPeriodo();">  <a class="dropdown-item" href="#">Vehiculos vendidos e un periodo</a></li>
+     <li onclick="vehiculoVentaPeriodo();">  <a class="dropdown-item" href="#">Vehiculos vendidos en un periodo</a></li>
      <li onclick="vehiculoCompradosPeriodo();">  <a class="dropdown-item" href="#">Vehiculos comprados en un periodo</a></li>
      <li onclick="vehiculoVentaFiltros();">  <a class="dropdown-item" href="#">Listado de vehiculos con filtros</a></li>
      <li onclick="listadoClientes();">  <a class="dropdown-item" href="#">Listado de clientes</a></li>
@@ -258,7 +258,80 @@
 
     </fieldset>
 </form>
-	 
+<!--Vender vehículo-->
+<form class="form-horizontal" name="frmVenderVehiculo">
+    <fieldset>
+        <legend>Vender vehículo</legend>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="txtNif">NIF cliente</label>
+            <div class="col-md-4">
+                <input name="txtNif" type="text" placeholder="" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="txtMatricula">Matrícula</label>
+            <div class="col-md-4">
+                <input name="txtMatricula" type="text"  class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="txtFecha">Fecha</label>
+            <div class="col-md-4">
+                <input name="txtFecha" type="text" placeholder="" class="form-control input-md" required="">
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="txtImporte">Importe</label>
+            <div class="col-md-4">
+                <input name="txtImporte" type="text" placeholder="" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="btnAceptar"></label>
+            <div class="col-md-4">
+                <input onclick="aceptarVentaVehiculo();" type="button" id="btnAceptar" name="btnAceptar" class="btn btn-primary" value="Aceptar" />
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+<!--Listado de vehículos vendidos en un periodo determinado-->
+<form class="form-horizontal" name="frmListadoVVP">
+    <fieldset>
+        <legend>Periodo entre:</legend>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="txtNif">Fecha de inicio</label>
+            <div class="col-md-4">
+                <input name="txtFechaInicio" type="text" placeholder="" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="txtMatricula">Fecha de fin</label>
+            <div class="col-md-4">
+                <input name="txtFechaFin" type="text"  class="form-control input-md" required="">
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="btnAceptar"></label>
+            <div class="col-md-4">
+                <input onclick="aceptarListadoVVP();" type="button" id="btnAceptar" name="btnAceptar" class="btn btn-primary" value="Aceptar" />
+            </div>
+        </div>
+
+    </fieldset>
+</form>
 
 
 

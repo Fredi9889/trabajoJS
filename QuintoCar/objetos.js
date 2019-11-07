@@ -99,7 +99,7 @@ constructor()
 
     //////////////////////////////////////////////////MÉTODOS/////////////////////////////////////////////////////////////////
 
-    //Introducir cliente
+    //1.-Introducir cliente
     altaCliente(oCliente) 
     {
         let sMensaje = "";
@@ -116,7 +116,7 @@ constructor()
       
     }
 
-    //Introducir vehiculo
+    //2.-Introducir vehiculo
    altaVehiculo(oVehiculo)
     {
         let sMensaje = "";
@@ -132,15 +132,17 @@ constructor()
         return sMensaje;
 
     }
-    //Buscar clientes
+    //3.-Buscar clientes
     buscarClientes(sNif)
     {
-
-    let oCliente;
-    if (this.clientes.filter(clientes => clientes.nif == sNif).length != 0) {
-          oCliente = new Cliente(this.sNif, this.nombre,this.apellido, this.telefono);
-        } 
-    return oCliente;
+    let oCliente = null;
+        for(let i=0 ; i<this.clientes.length ; i++){
+            let cliente = this.clientes[i];
+            if(cliente.nif == sNif){
+                oCliente = cliente;
+            }
+        }
+        return oCliente;
 
     }
     //4.1.-Buscar compra
@@ -250,6 +252,10 @@ constructor()
             tabla += "<tr><th>Matrícula</th><th>Marca</th><th>Modelo</th><th>Combustible</th></tr>";
             tabla += "<tr><td>" + value.vehiculo.matricula + "</td><td>" + value.vehiculo.marca + "</td><td>" + value.vehiculo.modelo + "</td><td>" + value.vehiculo.combustible + "</td></tr>";
             //Preguntar a Carlos que como se si un vehículo es un turismo o un 4x4
+            //Alfredo en la parte de formularios tengo que si es T es un turismo pero si es 4 es un 4x4
+            //Aqui esta el resultado que te indica si es un turismo o un 4x4 
+            //frmAltaVehiculo.txtCategoria.value
+            // Ya esta comprobado si el usuario introduce una T o un 4
             tabla += "<tr><th colspan='2'>Fecha de compra</th><th colspan='2'>Fecha de venta</th></tr>";
             tabla += "<tr><td colspan='2'>" + oCompra.fCompra + "</td><td colspan='2'>" + value.fVenta;
             tabla += "<tr><th colspan='2'>Importe de compra</th><th colspan='2'>Importe de venta</th></tr>";
@@ -261,7 +267,8 @@ constructor()
         arrayFiltrado.forEach(recorrerArray);
         return tabla;
     }
-    //ListadoCliente
+
+    //12.-ListadoCliente
     listadoCliente()
     {
     let i = 0;

@@ -17,7 +17,7 @@ Clase Venta y Clase Compra
 	Listar los vehículos que esten actualmente en venta(los que hemos comprado pero aun no hemos vendido), por lo que intuyo
 	que habrá que recorrer la tabla compra
 																						<===== No me borreis eso que es pa organizarme
-10-ListadoComprasPeriodo(FechaInicio, FechaFin): HTMLTable
+10-ListadoComprasPeriodo(FechaInicio, FechaFin): HTMLTable		--> Casi, te falta un par de tonterias
 	Mostrará un formulario donde pide una fecha de inicio y una fecha final mostrar todas las compras de ese periodo
 	Mostrar datos conmpletos del vehículo  -> ordenar por fecha de compra descendente
 
@@ -34,4 +34,7 @@ Samu: He terminao las clases Venta y Compra
 6/11/19
 Samu: Terminado ListadoALaVenta y buscarVenta
 
-ALFREDO, yo llevo mis progresos de memoria
+ALFREDO, yo llevo mis progresos de memoria -> Lo hacemos para saber más o menos como vamos como equipo CAPUYO
+
+8/11/19
+Casi he terminado ListadoComprasPeriodo, me faltan dos tonterias

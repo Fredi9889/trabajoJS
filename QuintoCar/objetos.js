@@ -222,7 +222,7 @@ constructor()
         return mens;
     }
 
-    //8.- Vehículos en venta
+    //8.- Vehículos en venta (vehiculosALaVenta)
     vehiculosEnVenta(){
         let vehiculo;
         for(let i=0;i<this.ventas.length;i++){
@@ -260,8 +260,31 @@ constructor()
             tabla += "<tr><td colspan='2'>" + oCompra.fCompra + "</td><td colspan='2'>" + value.fVenta;
             tabla += "<tr><th colspan='2'>Importe de compra</th><th colspan='2'>Importe de venta</th></tr>";
             tabla += "<tr><td colspan='2'>" + oCompra.importe + "</td><td colspan='2'>" + value.importe;
-            table += "<tr><th colspan='4'>Veneficios</th></tr>";
+            table += "<tr><th colspan='4'>Beneficios</th></tr>";
             table += "<tr><td>" + value.importe-oCompra.importe + "</td></tr>";
+            tabla += "</table>";
+        }
+        arrayFiltrado.forEach(recorrerArray);
+        return tabla;
+    }
+
+    //10.- Listado de vehículos comprados en un periodo determinado  
+    //Los registros del listado deben salir ordenados por fecha de compra descendente.
+    //Me falta añadir los datos del cliente vendedor y ordenarlos por fecha
+    listadoVendidosPeriodo(fInicio, fFin){
+        let arrayFiltrado = this.ventas.filter(x => x.fVenta>=fInicio && x.fVenta<=fFin);
+        let tabla;
+        function recorrerArray(value) {
+            let oVenta = this.buscarVenta(value.vehiculo.matricula);
+            tabla = '<table border="1"><tr>';
+            tabla += "<th colspan='4'>Vehículo</th></tr>";
+            tabla += "<tr><th>Matrícula</th><th>Marca</th><th>Modelo</th><th>Combustible</th><th>Categoría</th></tr>";
+            tabla += "<tr><td>" + value.vehiculo.matricula + "</td><td>" + value.vehiculo.marca + "</td><td>" + value.vehiculo.modelo + "</td><td>" + value.vehiculo.combustible + "</td><td>" + frmAltaVehiculo.txtCategoria.value + "</td></tr>";
+            //datos del cliente vendedor
+            tabla += "<tr><th colspan='2'>Fecha de compra</th><th colspan='2'>Importe de compra</th></tr>";
+            tabla += "<tr><th colspan='2'>" + oVenta.fCompra + "</th><th colspan='2'>" + oVenta.importe + "</th></tr>";
+            table += "<tr><th colspan='4'>Cliente</th></tr>";
+
             tabla += "</table>";
         }
         arrayFiltrado.forEach(recorrerArray);

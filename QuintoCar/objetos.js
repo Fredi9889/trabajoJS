@@ -145,7 +145,7 @@ constructor()
         return oCliente;
 
     }
-    //4.1.-Buscar compra
+    //4.-Buscar compra
     buscarCompra(matricula){
         let oCompra = null;
         for(let i=0 ; i<this.compras.length ; i++){
@@ -243,6 +243,9 @@ constructor()
     //importe de venta y beneficio (importe venta – importe compra).  
     //Los registros del listado deben salir ordenados por fecha de venta ascendente.
     listadoVendidosPeriodo(fInicio, fFin){
+        this.ventas.fVenta.sort(function(a,b){
+            return a - b;
+        });
         let arrayFiltrado = this.ventas.filter(x => x.fVenta>=fInicio && x.fVenta<=fFin);
         let tabla;
         function recorrerArray(value) {

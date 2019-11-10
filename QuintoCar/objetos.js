@@ -292,8 +292,17 @@ constructor()
     }
 
     //12.-ListadoCliente
-    listadoCliente()
+   listadoCliente()
     {
+    this.clientes = this.clientes.sort(function (a, b)
+    {
+    if ( a.apellido < b.apellido )
+        return -1;
+    if ( a.apellido > b.apellido )
+        return 1;
+    return 0;
+    })
+        
     let i = 0;
     let sMensaje = "<table border='1'><thead><tr>";
     sMensaje += "<th>NIF</th><th>Nombre</th><th>Apellido</th><th>Telefono</th></tr></thead><tbody>";

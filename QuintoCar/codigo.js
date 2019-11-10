@@ -29,18 +29,6 @@ function altaVehiculo(){
     divListado.style.display = "none";
     frmComprarVehiculo.style.display = "none";
 }
-//Mostrar comprar vehículo
-function comprarVehiculo(){
-    frmVenderVehiculo.style.display = "none";
-    frmListadoVVP.style.display = "none";
-    frmListadoVCP.style.display = "none";
-    frmAltaCliente.style.display = "none";
-    frmAltaVehiculo.style.display = "none";
-    frmAltaTurismo.style.display = "none";
-    frmAlta4x4.style.display = "none";
-    divListado.style.display = "none";
-    frmComprarVehiculo.style.display = "block";
-}
 
 
 function comprobarCategoria(){
@@ -186,15 +174,32 @@ function aceptarAltaVehiculo()
    
     
 }
-// Comprar vehículo
+//6.- Mostrar comprar vehículo
+function comprarVehiculo(){
+    frmVenderVehiculo.style.display = "none";
+    frmListadoVVP.style.display = "none";
+    frmListadoVCP.style.display = "none";
+    frmAltaCliente.style.display = "none";
+    frmAltaVehiculo.style.display = "none";
+    frmAltaTurismo.style.display = "none";
+    frmAlta4x4.style.display = "none";
+    divListado.style.display = "none";
+    frmComprarVehiculo.style.display = "block";
+}
+//6.- Comprar vehículo
     function aceptarCompraVehiculo(){
         //Recoger valores del formulario
         let nifCliente = frmComprarVehiculo.txtNif.value.trim();
         let matricula = frmComprarVehiculo.txtMatricula.value.trim();
         let fechaCompra = frmComprarVehiculo.txtFecha.value.trim();
         let importeCompra = frmComprarVehiculo.txtImporte.value.trim();
-        let mensaje = oQuintoCar.comprarVehiculo(matricula, nifCliente, importeCompra, fechaCompra);
-        alert(mensaje);
+        if(nifCliente=="" || matricula==""|| fechaCompra=="" || importeCompra==""){
+            alert("ERROR: Debe rellenar todos los campos");
+        }else{
+            let mensaje = oQuintoCar.comprarVehiculo(matricula, nifCliente, importeCompra, fechaCompra);
+            alert(mensaje);
+        }
+        
     }
 
 //ListadoClientes
@@ -229,8 +234,16 @@ function aceptarVentaVehiculo(){
     let matricula = frmVenderVehiculo.txtMatricula.value.trim();
     let fechaCompra = frmVenderVehiculo.txtFecha.value.trim();
     let importeCompra = frmVenderVehiculo.txtImporte.value.trim();
-    let mensaje = oQuintoCar.venderVehiculo(matricula, nifCliente, importeCompra, fechaCompra);
-    alert(mensaje);
+    if(nifCliente=="" || matricula==""|| fechaCompra=="" || importeCompra==""){
+        alert("ERROR: Debe rellenar todos los campos");
+    }else{
+        let mensaje = oQuintoCar.venderVehiculo(matricula, nifCliente, importeCompra, fechaCompra);
+        alert(mensaje);
+    }
+    frmVenderVehiculo.txtNif.value = "";
+    frmVenderVehiculo.txtMatricula.value = "";
+    frmVenderVehiculo.txtFecha.value = "";
+    frmVenderVehiculo.txtImporte.value = "";
 }
 //8.-Listado de vehículos en venta
 function listadoALaVenta(){
@@ -255,7 +268,15 @@ function vehiculoVentaPeriodo(){
 function aceptarListadoVVP(){
     let fInicio = frmListadoVVP.txtFechaInicio.value.trim();
     let fFin = frmListadoVVP.txtFechaFin.value.trim();
-    divListado.innerHTML= oQuintoCar.listadoVendidosPeriodo(fInicio, fFin);
+    if(fInicio==""||fFin==""){
+        alert("ERROR: Debe rellenar todos los campos");
+    }else{
+        // No se como se le pone un título a la nueva pestaña
+        let pestaña = window.open("");
+        pestaña.document.write("<h1>Listado de vehículos vendidos entre las fechas " + fInicio+ " y " + fFin + "</h1>" + oQuintoCar.listadoVendidosPeriodo(fInicio, fFin));
+    }
+    frmListadoVVP.txtFechaInicio.value = "";
+    frmListadoVVP.txtFechaFin.value = "";
 }
 
 //10.-Mostrar listado de vehículos vendidos en un periodo determinado

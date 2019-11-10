@@ -41,7 +41,7 @@
     <ul class="dropdown-menu">
     <li onclick="listadoALaVenta();">  <a class="dropdown-item" href="#">Vehiculo a la venta</a> </li>
      <li onclick="vehiculoVentaPeriodo();">  <a class="dropdown-item" href="#">Vehiculos vendidos en un periodo</a></li>
-     <li onclick="vehiculoCompradosPeriodo();">  <a class="dropdown-item" href="#">Vehiculos comprados en un periodo</a></li>
+     <li onclick="listadoComprasPeriodo();">  <a class="dropdown-item" href="#">Vehiculos comprados en un periodo</a></li>
      <li onclick="vehiculoVentaFiltros();">  <a class="dropdown-item" href="#">Listado de vehiculos con filtros</a></li>
      <li onclick="listadoClientes();">  <a class="dropdown-item" href="#">Listado de clientes</a></li>
     </ul >
@@ -333,12 +333,37 @@
     </fieldset>
 </form>
 
+<!--Listado de vehículos comprados en un periodo determinado-->
+<form class="form-horizontal" name="frmListadoVCP">
+    <fieldset>
+        <legend>Periodo entre:</legend>
 
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="txtNif">Fecha de inicio</label>
+            <div class="col-md-4">
+                <input name="txtFechaInicio" type="text" placeholder="" class="form-control input-md" required="">
 
+            </div>
+        </div>
 
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="txtMatricula">Fecha de fin</label>
+            <div class="col-md-4">
+                <input name="txtFechaFin" type="text"  class="form-control input-md" required="">
 
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="btnAceptar"></label>
+            <div class="col-md-4">
+                <input onclick="aceptarListadoVCP();" type="button" id="btnAceptar" name="btnAceptar" class="btn btn-primary" value="Aceptar" />
+            </div>
+        </div>
 
-<!-- A partir de aqui no se puede contruir formularios-->
+    </fieldset>
+</form>
+
+<!-- A partir de aqui no se puede construir formularios-->
 <div id="listado">
 
 </div>

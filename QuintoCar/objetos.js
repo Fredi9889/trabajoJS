@@ -99,7 +99,7 @@ constructor()
 
     //////////////////////////////////////////////////MÉTODOS/////////////////////////////////////////////////////////////////
 
-    //Introducir cliente
+    //1.-Introducir cliente
     altaCliente(oCliente) 
     {
         let sMensaje = "";
@@ -116,7 +116,7 @@ constructor()
       
     }
 
-    //Introducir vehiculo
+    //2.-Introducir vehiculo
    altaVehiculo(oVehiculo)
     {
         let sMensaje = "";
@@ -132,15 +132,17 @@ constructor()
         return sMensaje;
 
     }
-    //Buscar clientes
+    //3.-Buscar clientes
     buscarClientes(sNif)
     {
-
-    let oCliente;
-    if (this.clientes.filter(clientes => clientes.nif == sNif).length != 0) {
-          oCliente = new Cliente(this.sNif, this.nombre,this.apellido, this.telefono);
-        } 
-    return oCliente;
+    let oCliente = null;
+        for(let i=0 ; i<this.clientes.length ; i++){
+            let cliente = this.clientes[i];
+            if(cliente.nif == sNif){
+                oCliente = cliente;
+            }
+        }
+        return oCliente;
 
     }
     //4.1.-Buscar compra
@@ -220,7 +222,7 @@ constructor()
         return mens;
     }
 
-    //8.- Vehículos en venta
+    //8.- Vehículos en venta (vehiculosALaVenta)
     vehiculosEnVenta(){
         let vehiculo;
         for(let i=0;i<this.ventas.length;i++){
@@ -250,20 +252,57 @@ constructor()
             tabla += "<tr><th>Matrícula</th><th>Marca</th><th>Modelo</th><th>Combustible</th></tr>";
             tabla += "<tr><td>" + value.vehiculo.matricula + "</td><td>" + value.vehiculo.marca + "</td><td>" + value.vehiculo.modelo + "</td><td>" + value.vehiculo.combustible + "</td></tr>";
             //Preguntar a Carlos que como se si un vehículo es un turismo o un 4x4
+            //Alfredo en la parte de formularios tengo que si es T es un turismo pero si es 4 es un 4x4
+            //Aqui esta el resultado que te indica si es un turismo o un 4x4 
+            //frmAltaVehiculo.txtCategoria.value
+            // Ya esta comprobado si el usuario introduce una T o un 4
             tabla += "<tr><th colspan='2'>Fecha de compra</th><th colspan='2'>Fecha de venta</th></tr>";
             tabla += "<tr><td colspan='2'>" + oCompra.fCompra + "</td><td colspan='2'>" + value.fVenta;
             tabla += "<tr><th colspan='2'>Importe de compra</th><th colspan='2'>Importe de venta</th></tr>";
             tabla += "<tr><td colspan='2'>" + oCompra.importe + "</td><td colspan='2'>" + value.importe;
-            table += "<tr><th colspan='4'>Veneficios</th></tr>";
+            table += "<tr><th colspan='4'>Beneficios</th></tr>";
             table += "<tr><td>" + value.importe-oCompra.importe + "</td></tr>";
             tabla += "</table>";
         }
         arrayFiltrado.forEach(recorrerArray);
         return tabla;
     }
-    //ListadoCliente
-    listadoCliente()
+
+    //10.- Listado de vehículos comprados en un periodo determinado  
+    //Los registros del listado deben salir ordenados por fecha de compra descendente.
+    //Me falta añadir los datos del cliente vendedor y ordenarlos por fecha
+    listadoVendidosPeriodo(fInicio, fFin){
+        let arrayFiltrado = this.ventas.filter(x => x.fVenta>=fInicio && x.fVenta<=fFin);
+        let tabla;
+        function recorrerArray(value) {
+            let oVenta = this.buscarVenta(value.vehiculo.matricula);
+            tabla = '<table border="1"><tr>';
+            tabla += "<th colspan='4'>Vehículo</th></tr>";
+            tabla += "<tr><th>Matrícula</th><th>Marca</th><th>Modelo</th><th>Combustible</th><th>Categoría</th></tr>";
+            tabla += "<tr><td>" + value.vehiculo.matricula + "</td><td>" + value.vehiculo.marca + "</td><td>" + value.vehiculo.modelo + "</td><td>" + value.vehiculo.combustible + "</td><td>" + frmAltaVehiculo.txtCategoria.value + "</td></tr>";
+            //datos del cliente vendedor
+            tabla += "<tr><th colspan='2'>Fecha de compra</th><th colspan='2'>Importe de compra</th></tr>";
+            tabla += "<tr><th colspan='2'>" + oVenta.fCompra + "</th><th colspan='2'>" + oVenta.importe + "</th></tr>";
+            table += "<tr><th colspan='4'>Cliente</th></tr>";
+
+            tabla += "</table>";
+        }
+        arrayFiltrado.forEach(recorrerArray);
+        return tabla;
+    }
+
+    //12.-ListadoCliente
+   listadoCliente()
     {
+    this.clientes = this.clientes.sort(function (a, b)
+    {
+    if ( a.apellido < b.apellido )
+        return -1;
+    if ( a.apellido > b.apellido )
+        return 1;
+    return 0;
+    })
+        
     let i = 0;
     let sMensaje = "<table border='1'><thead><tr>";
     sMensaje += "<th>NIF</th><th>Nombre</th><th>Apellido</th><th>Telefono</th></tr></thead><tbody>";

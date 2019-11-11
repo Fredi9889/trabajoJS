@@ -272,7 +272,8 @@ function aceptarListadoVVP(){
         alert("ERROR: Debe rellenar todos los campos");
     }else{
         // No se como se le pone un título a la nueva pestaña
-        let pestaña = window.open("");
+        let pestaña = window.open("","Listado vehículos");
+        pestaña.document.write("<title>"+pestaña.name+"</title>");
         pestaña.document.write("<h1>Listado de vehículos vendidos entre las fechas " + fInicio+ " y " + fFin + "</h1>" + oQuintoCar.listadoVendidosPeriodo(fInicio, fFin));
     }
     frmListadoVVP.txtFechaInicio.value = "";

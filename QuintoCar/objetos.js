@@ -170,10 +170,9 @@ constructor()
     comprarVehiculo(matricula, sNIF, importeCompra, fechaCompra){
         let mens = "";
 
-        let oClientesBuscar = this.clientes.filter(cli => cli.nif == sNIF);
         let oVehiculosBuscar = this.vehiculos.filter(vehi => vehi.matricula == matricula);
         //Comprobar que exista el cliente
-        if (oClientesBuscar.length == 0) {
+        if (this.buscarClientes(sNIF) == null) {
             mens = "ERROR: El cliente no existe";
         }else
         //Comprobar que el vehículo esté registrado
@@ -185,7 +184,7 @@ constructor()
             mens = "ERROR: El vehículo ya se había comprado antes";
         }else{
 
-            let c = new Compra(oClientesBuscar[0], oVehiculosBuscar[0], importeCompra,fechaCompra);
+            let c = new Compra(this.buscarClientes(sNIF), oVehiculosBuscar[0], importeCompra,fechaCompra);
             this.compras.push(c);
             mens = "El vehículo se ha comprado correctamente";
         } 
@@ -243,7 +242,8 @@ constructor()
     //importe de venta y beneficio (importe venta – importe compra).  
     //Los registros del listado deben salir ordenados por fecha de venta ascendente.
     listadoVendidosPeriodo(fInicio, fFin){
-        this.ventas.fVenta.sort(function(a,b){
+        
+        this.ventas.fVenta.sort(function(a,b){/////////////
             return a - b;
         });
         let arrayFiltrado = this.ventas.filter(x => x.fVenta>=fInicio && x.fVenta<=fFin);
@@ -254,11 +254,15 @@ constructor()
             tabla += "<th colspan='4'>Vehículo</th></tr>";
             tabla += "<tr><th>Matrícula</th><th>Marca</th><th>Modelo</th><th>Combustible</th></tr>";
             tabla += "<tr><td>" + value.vehiculo.matricula + "</td><td>" + value.vehiculo.marca + "</td><td>" + value.vehiculo.modelo + "</td><td>" + value.vehiculo.combustible + "</td></tr>";
-            //Preguntar a Carlos que como se si un vehículo es un turismo o un 4x4
-            //Alfredo en la parte de formularios tengo que si es T es un turismo pero si es 4 es un 4x4
-            //Aqui esta el resultado que te indica si es un turismo o un 4x4 
-            //frmAltaVehiculo.txtCategoria.value
-            // Ya esta comprobado si el usuario introduce una T o un 4
+            if(value.vehiculo instanceof Turismo){////////////
+                tabla += "<tr><th colspan='3'>Turismo</th></tr>";
+                tabla += "<tr><th>ABS</th><th>Descapotable</th><th>Número de puertas</th></tr>";
+                tabla += "<tr><td>"+ value.vehiculo.Turismo.abs+"</td><td>"+value.vehiculo.Turismo.descapotable + "</td><td>"+ value.vehiculo.Turismo.numPuertas +"</td></tr>";
+            }else if(value.vehiculo instanceof todoTerreno){////////////
+                tabla += "<tr><th colspan='4'>Todo terreno</th></tr>";
+                tabla += "<tr><th colspan='4'>Pendiente máxima</th></tr>";
+                tabla += "<tr><td colspan='4'>" + value.vehiculo.todoTerreno.pendienteMax +"</td></tr>";
+            }
             tabla += "<tr><th colspan='2'>Fecha de compra</th><th colspan='2'>Fecha de venta</th></tr>";
             tabla += "<tr><td colspan='2'>" + oCompra.fCompra + "</td><td colspan='2'>" + value.fVenta;
             tabla += "<tr><th colspan='2'>Importe de compra</th><th colspan='2'>Importe de venta</th></tr>";

@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>QuintoCar</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
  a{
  color: white;
@@ -363,6 +362,69 @@
 
     </fieldset>
 </form>
+
+<!--Listado de vehículos-->
+<form class="form-horizontal" name="frmListarVehiculo">
+<fieldset>
+<legend>Listar Vehiculo</legend>
+
+<!-- Multiple Radios -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="radiosTipoTurismo">Multiple Radios</label>
+  <div class="col-md-4">
+  <div class="radio">
+    <label for="radiosTipoTurismo-0">
+      <input type="radio" name="radiosTipoTurismo" id="radiosTipoTurismo-0" value="Turismo" checked="checked">
+      Turismo
+    </label>
+    </div>
+  <div class="radio">
+    <label for="radiosTipoTurismo-1">
+      <input type="radio" name="radiosTipoTurismo" id="radiosTipoTurismo-1" value="V4x4">
+      V4x4
+    </label>
+    </div>
+  <div class="radio">
+    <label for="radiosTipoTurismo-2">
+      <input type="radio" name="radiosTipoTurismo" id="radiosTipoTurismo-2" value="Todos">
+      Todos
+    </label>
+    </div>
+  </div>
+</div>
+
+<!-- Multiple Radios (inline) -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="radiosCombustibles">Inline Radios</label>
+  <div class="col-md-4"> 
+    <label class="radio-inline" for="radiosCombustibles-0">
+      <input type="radio" name="radiosCombustibles" id="radiosCombustibles-0" value="Gasolina" checked="checked">
+      Gasolina
+    </label> 
+    <label class="radio-inline" for="radiosCombustibles-1">
+      <input type="radio" name="radiosCombustibles" id="radiosCombustibles-1" value="Diesel">
+      Diesel
+    </label> 
+    <label class="radio-inline" for="radiosCombustibles-2">
+      <input type="radio" name="radiosCombustibles" id="radiosCombustibles-2" value="Biocombustible">
+      Biocombustible
+    </label> 
+    <label class="radio-inline" for="radiosCombustibles-3">
+      <input type="radio" name="radiosCombustibles" id="radiosCombustibles-3" value="Todos">
+      Todos
+    </label>
+  </div>
+</div>
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="btnAceptarBusqueda"></label>
+            <div class="col-md-4">
+                <input onclick="aceptarBusqueda();" type="button" id="btnAceptarBusqueda" name="btnAceptarBusqueda" class="btn btn-primary" value="Aceptar" />
+            </div>
+    </div>
+
+</fieldset>
+</form>
+
 
 <!-- A partir de aqui no se puede construir formularios-->
 <div id="listado">

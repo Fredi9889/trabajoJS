@@ -145,7 +145,7 @@ constructor()
         return oCliente;
 
     }
-    //4.1.-Buscar compra
+    //4.-Buscar compra
     buscarCompra(matricula){
         let oCompra = null;
         for(let i=0 ; i<this.compras.length ; i++){
@@ -160,9 +160,9 @@ constructor()
     //5.-BuscarVenta
     buscarVenta(matricula){
         let oVenta = null;
-        if (this.ventas.filter(ventas => ventas.vehiculo.matricula == matricula).length != 0) {
-          oVenta = ventas;
-        } 
+        if (this.ventas.filter(v => v.vehiculo.matricula == matricula).length != 0) {
+          oVenta = v;
+        }
         return oVenta;
     }
     
@@ -170,10 +170,9 @@ constructor()
     comprarVehiculo(matricula, sNIF, importeCompra, fechaCompra){
         let mens = "";
 
-        let oClientesBuscar = this.clientes.filter(cli => cli.nif == sNIF);
         let oVehiculosBuscar = this.vehiculos.filter(vehi => vehi.matricula == matricula);
         //Comprobar que exista el cliente
-        if (oClientesBuscar.length == 0) {
+        if (this.buscarClientes(sNIF) == null) {
             mens = "ERROR: El cliente no existe";
         }else
         //Comprobar que el vehículo esté registrado
@@ -185,7 +184,7 @@ constructor()
             mens = "ERROR: El vehículo ya se había comprado antes";
         }else{
 
-            let c = new Compra(oClientesBuscar[0], oVehiculosBuscar[0], importeCompra,fechaCompra);
+            let c = new Compra(this.buscarClientes(sNIF), oVehiculosBuscar[0], importeCompra,fechaCompra);
             this.compras.push(c);
             mens = "El vehículo se ha comprado correctamente";
         } 
@@ -209,14 +208,22 @@ constructor()
             if(this.ventas.some(matri => matri == matricula)){
                 mens = "ERROR: El vehículo ya se ha vendido anteriormente";
             }else
-            //Comprobar que el importe de venta es superior al de compra
-            if(this.buscarCompra(matricula).importe<this.buscarVenta(matricula).importe){
-                let v = new Venta(oCliente, oVehiculosBuscar[0], importeCompra,fechaCompra);
-                this.ventas.push(v);
-                mens = "El vehículo se ha comprado correctamente";
+            //Comprobar que el vehículo haya sido comprado anteriormente
+            if(this.buscarCompra(matricula) == null){
+                mens = "ERROR: El vehículo aún no ha sido comprado";
             }else{
-                mens = "ERROR: El importe de la venta no es superior al de compra";
-            } 
+                let oCompra = this.buscarCompra(matricula);
+                
+                //Comprobar que el importe de venta es superior al de compra
+                if(oCompra.importe < importeVenta){
+                    let v = new Venta(oCliente, oVehiculosBuscar[0], importeVenta,fechaCompra);
+                    this.ventas.push(v);
+                    mens = "El vehículo se ha vendido correctamente";
+                }else{
+                    mens = "ERROR: El importe de la venta no es superior al de compra";
+                } 
+            }
+            
         }
         
         return mens;
@@ -246,25 +253,32 @@ constructor()
     //importe de venta y beneficio (importe venta – importe compra).  
     //Los registros del listado deben salir ordenados por fecha de venta ascendente.
     listadoVendidosPeriodo(fInicio, fFin){
+        /*this.ventas.fVenta.sort(function(a,b){/////////////
+            return a - b;
+        });*/
         let arrayFiltrado = this.ventas.filter(x => x.fVenta>=fInicio && x.fVenta<=fFin);
         let tabla;
         function recorrerArray(value) {
             let oCompra = this.buscarCompra(value.vehiculo.matricula);
-            tabla = '<table border="1"><tr>';
+            tabla = '<table border="1" style="text-align: center;"><tr>';
             tabla += "<th colspan='4'>Vehículo</th></tr>";
             tabla += "<tr><th>Matrícula</th><th>Marca</th><th>Modelo</th><th>Combustible</th></tr>";
             tabla += "<tr><td>" + value.vehiculo.matricula + "</td><td>" + value.vehiculo.marca + "</td><td>" + value.vehiculo.modelo + "</td><td>" + value.vehiculo.combustible + "</td></tr>";
-            //Preguntar a Carlos que como se si un vehículo es un turismo o un 4x4
-            //Alfredo en la parte de formularios tengo que si es T es un turismo pero si es 4 es un 4x4
-            //Aqui esta el resultado que te indica si es un turismo o un 4x4 
-            //frmAltaVehiculo.txtCategoria.value
-            // Ya esta comprobado si el usuario introduce una T o un 4
+            if(value.vehiculo instanceof Turismo){////////////
+                tabla += "<tr><th colspan='3'>Turismo</th></tr>";
+                tabla += "<tr><th>ABS</th><th>Descapotable</th><th>Número de puertas</th></tr>";
+                tabla += "<tr><td>"+ value.vehiculo.Turismo.abs+"</td><td>"+value.vehiculo.Turismo.descapotable + "</td><td>"+ value.vehiculo.Turismo.numPuertas +"</td></tr>";
+            }else if(value.vehiculo instanceof todoTerreno){////////////
+                tabla += "<tr><th colspan='4'>Todo terreno</th></tr>";
+                tabla += "<tr><th colspan='4'>Pendiente máxima</th></tr>";
+                tabla += "<tr><td colspan='4'>" + value.vehiculo.todoTerreno.pendienteMax +"</td></tr>";
+            }
             tabla += "<tr><th colspan='2'>Fecha de compra</th><th colspan='2'>Fecha de venta</th></tr>";
             tabla += "<tr><td colspan='2'>" + oCompra.fCompra + "</td><td colspan='2'>" + value.fVenta;
             tabla += "<tr><th colspan='2'>Importe de compra</th><th colspan='2'>Importe de venta</th></tr>";
             tabla += "<tr><td colspan='2'>" + oCompra.importe + "</td><td colspan='2'>" + value.importe;
-            table += "<tr><th colspan='4'>Beneficios</th></tr>";
-            table += "<tr><td>" + value.importe-oCompra.importe + "</td></tr>";
+            tabla += "<tr><th colspan='4'>Beneficios</th></tr>";
+            tabla += "<tr><td>" + value.importe-oCompra.importe + "</td></tr>";
             tabla += "</table>";
         }
         arrayFiltrado.forEach(recorrerArray);

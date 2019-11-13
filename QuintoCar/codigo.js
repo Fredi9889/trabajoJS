@@ -266,10 +266,9 @@ function aceptarVentaVehiculo(){
 }
 //8.-Listado de vehículos en venta
 function listadoALaVenta(){
-    
-    let sMensaje = oQuintoCar.vehiculosEnVenta();
-    divListado.style.display = "block";    
-    divListado.innerHTML= sMensaje;
+    let pestaña = window.open("","Listado vehículos");
+    pestaña.document.write("<title>"+pestaña.name+"</title>");
+    pestaña.document.write("<h3>Listado de vehículos que están aún en venta</h3>" + oQuintoCar.vehiculosEnVenta());
 }
 //9.-Mostrar listado de vehículos vendidos en un periodo determinado
 function vehiculoVentaPeriodo(){
@@ -293,13 +292,13 @@ function aceptarListadoVVP(){
     }else{
         let pestaña = window.open("","Listado vehículos");
         pestaña.document.write("<title>"+pestaña.name+"</title>");
-        pestaña.document.write("<h1>Listado de vehículos vendidos entre las fechas " + fInicio+ " y " + fFin + "</h1>" + oQuintoCar.listadoVendidosPeriodo(fInicio, fFin));
+        pestaña.document.write("<h3>Listado de vehículos vendidos entre las fechas " + fInicio+ " y " + fFin + "</h3>" + oQuintoCar.listadoVendidosPeriodo(fInicio, fFin));
         //divListado.innerHTML = oQuintoCar.listadoVendidosPeriodo(fInicio, fFin);
     }
     frmListadoVVP.txtFechaInicio.value = "";
     frmListadoVVP.txtFechaFin.value = "";
-    //divListado.style.display = "block";
-    //frmListadoVVP.style.display = "none";
+    divListado.style.display = "block";
+    frmListadoVVP.style.display = "none";
 }
 
 //10.-Mostrar listado de vehículos vendidos en un periodo determinado

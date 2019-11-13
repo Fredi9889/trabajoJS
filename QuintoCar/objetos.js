@@ -35,7 +35,7 @@ function Compra(oCliente, oVehiculo, fImporte,dtFCompra) {
     this.fCompra = dtFCompra;
 }
 
-Venta.prototype.toString = function() {
+Compra.prototype.toString = function() {
     let sMensaje = "El cliente " +this.cliente+ ", ha comprado un " +this.vehiculo+" por un importe de " +this.importe+ " el día " +this.fCompra;
     return sMensaje;
 }
@@ -191,7 +191,7 @@ constructor()
         return mens;
     }
     //7.-Vender vehículo
-    venderVehiculo(matricula, NIF, importeCompra, fechaCompra){
+    venderVehiculo(matricula, NIF, importeVenta, fechaCompra){
         let mens = "";
         let oCliente;
         let oVehiculosBuscar = this.vehiculos.filter(vehi => vehi.matricula == matricula);
@@ -232,20 +232,16 @@ constructor()
     //8.- Vehículos en venta (vehiculosALaVenta)
     vehiculosEnVenta(){
         let vehiculo;
-        for(let i=0;i<this.ventas.length;i++){
-            vehiculo=this.ventas.vehiculo.matricula;
-            for(let j=0;j<this.compras.length;j++){
-                if (!vehiculo==this.compras[i].vehiculo.matricula) {
-                    console.log(vehiculo);
-                    return vehiculo;
-                }else{
-                    return "por lo menos llega bro";
-                }
+        let tabla = '<table border="1" style="text-align: center;"><tr>';
+        tabla += "<tr><th>Matricula</th><th>Marca</th><th>Modelo</th><th>Precio mínimo de salida</th></tr>";
+        for(let i=0;i<this.vehiculos.length;i++){
+            vehiculo=this.vehiculos[i];
+            if(this.buscarVenta(vehiculo.matricula) == null){
+                tabla += "<tr><td>" + vehiculo.matricula + "</td><td>" + vehiculo.marca + "</td><td>" + vehiculo.modelo + "</td><td>" + (this.buscarCompra(vehiculo.matricula).importe + 1) + "</td></tr>";
             }
         }
-        return "aqui llega pero no hace lo que queremos";
-        //si pongo return vehiculo, llega undefined
-        //creo que es porque tengo que pasarle el mensaje, es decir, que no le puedo pasar vehiculo directamente
+        tabla += "</table>";
+        return tabla;
     }
 
     //9.- Listado de vehículos vendidos en un periodo determinado
@@ -253,42 +249,43 @@ constructor()
     //importe de venta y beneficio (importe venta – importe compra).  
     //Los registros del listado deben salir ordenados por fecha de venta ascendente.
     listadoVendidosPeriodo(fInicio, fFin){
-        /*this.ventas.fVenta.sort(function(a,b){/////////////
+        this.ventas.sort(function(a,b){
             return a - b;
-        });*/
+        });
         let arrayFiltrado = this.ventas.filter(x => x.fVenta>=fInicio && x.fVenta<=fFin);
-        let tabla;
-        function recorrerArray(value) {
-            let oCompra = this.buscarCompra(value.vehiculo.matricula);
+        let tabla = "";
+        let that = this;
+        arrayFiltrado.forEach(function(value) {
+            let oCompra = that.buscarCompra(value.vehiculo.matricula);
             tabla = '<table border="1" style="text-align: center;"><tr>';
             tabla += "<th colspan='4'>Vehículo</th></tr>";
             tabla += "<tr><th>Matrícula</th><th>Marca</th><th>Modelo</th><th>Combustible</th></tr>";
             tabla += "<tr><td>" + value.vehiculo.matricula + "</td><td>" + value.vehiculo.marca + "</td><td>" + value.vehiculo.modelo + "</td><td>" + value.vehiculo.combustible + "</td></tr>";
-            if(value.vehiculo instanceof Turismo){////////////
+            if(value.vehiculo instanceof Turismo){
                 tabla += "<tr><th colspan='3'>Turismo</th></tr>";
                 tabla += "<tr><th>ABS</th><th>Descapotable</th><th>Número de puertas</th></tr>";
-                tabla += "<tr><td>"+ value.vehiculo.Turismo.abs+"</td><td>"+value.vehiculo.Turismo.descapotable + "</td><td>"+ value.vehiculo.Turismo.numPuertas +"</td></tr>";
-            }else if(value.vehiculo instanceof todoTerreno){////////////
+                tabla += "<tr><td>"+ value.vehiculo.abs+"</td><td>"+value.vehiculo.descapotable + "</td><td>"+ value.vehiculo.numPuertas +"</td></tr>";
+            }else if(value.vehiculo instanceof todoTerreno){
                 tabla += "<tr><th colspan='4'>Todo terreno</th></tr>";
                 tabla += "<tr><th colspan='4'>Pendiente máxima</th></tr>";
-                tabla += "<tr><td colspan='4'>" + value.vehiculo.todoTerreno.pendienteMax +"</td></tr>";
+                tabla += "<tr><td colspan='4'>" + value.vehiculo.pendienteMax +"</td></tr>";
             }
             tabla += "<tr><th colspan='2'>Fecha de compra</th><th colspan='2'>Fecha de venta</th></tr>";
             tabla += "<tr><td colspan='2'>" + oCompra.fCompra + "</td><td colspan='2'>" + value.fVenta;
             tabla += "<tr><th colspan='2'>Importe de compra</th><th colspan='2'>Importe de venta</th></tr>";
             tabla += "<tr><td colspan='2'>" + oCompra.importe + "</td><td colspan='2'>" + value.importe;
             tabla += "<tr><th colspan='4'>Beneficios</th></tr>";
-            tabla += "<tr><td>" + value.importe-oCompra.importe + "</td></tr>";
+            let x = parseInt(value.importe);let y = parseInt(oCompra.importe);
+            tabla += "<tr><td colspan='4'>" + (x-y) + "</td></tr>";
             tabla += "</table>";
-        }
-        arrayFiltrado.forEach(recorrerArray);
+        });
         return tabla;
     }
 
     //10.- Listado de vehículos comprados en un periodo determinado  
     //Los registros del listado deben salir ordenados por fecha de compra descendente.
     //Me falta añadir los datos del cliente vendedor y ordenarlos por fecha
-    listadoVendidosPeriodo(fInicio, fFin){
+    listadoCompradosPeriodo(fInicio, fFin){
         let arrayFiltrado = this.ventas.filter(x => x.fVenta>=fInicio && x.fVenta<=fFin);
         let tabla;
         function recorrerArray(value) {
